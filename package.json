@@ -1,0 +1,19 @@
+{
+  "name": "airtable-wrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.11.6"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3"
+  }
+}
