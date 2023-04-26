@@ -4,6 +4,8 @@ import Airtable from "airtable";
 class BaseWrapper {
   constructor(base) {
     this.base = base;
+    this._id = base.getId();
+    this._name = base.name;
   }
 
   getTable = (table) => {
@@ -15,6 +17,14 @@ class BaseWrapper {
       console.error(`Couldn't load table ${table} : ${e.message}`);
     }
   };
+
+  get name() {
+    return this._name;
+  }
+
+  get id() {
+    return this._id;
+  }
 }
 
 // TableWrapper is a wrapper around the Airtable Table object
@@ -107,12 +117,22 @@ class RecordWrapper {
 }
 
 
-// factory function
+/**
+ * Creates a wrapped Airtable base instance for interacting with the Airtable API.
+ * 
+ * @param {string} baseID - The unique identifier of the Airtable base.
+ * @param {string} apiKey - The API key for authenticating with the Airtable API.
+ * @returns {BaseWrapper} A wrapped Airtable base instance for making API requests.
+ * 
+ * @example
+ * const myBaseID = 'appXXXXXXXXXXXXXX';
+ * const myApiKey = 'keyXXXXXXXXXXXXXX';
+ * const myAirtableBase = airtableBase(myBaseID, myApiKey);
+ */
 export const airtableBase = (baseID, apiKey) => {
   const loadBase = new Airtable({
     apiKey: apiKey,
   }).base(baseID);
-
   const base = new BaseWrapper(loadBase);
   return base;
 };
