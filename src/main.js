@@ -1,4 +1,5 @@
 import Airtable from "airtable";
+import {fetch} from "node-fetch";
 import BaseWrapper from "./Wrappers/BaseWrapper.js";
 
 
