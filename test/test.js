@@ -5,7 +5,10 @@ dotenv.config();
 import { airtable } from "../src/main.js";
 
 // test parameters
-const baseID = "appX8bN5InXaMteca"; // need to change to a test base
+const baseID = "appjRThvK61bQlzb1"; 
+const tableID = 'tblD4xpWutzTKas3r';
+
+// global variables
 let base = {};
 let table = {};
 
@@ -17,7 +20,7 @@ describe("Base Functionality", () => {
   });
 
   it("should return a table object", async () => {
-    table = await base.getTable("tbl0XbaLEnIZAlABf");
+    table = await base.getTable(tableID);
     expect(table).to.be.an("object");
   });
 });
@@ -26,12 +29,12 @@ describe("Table Functionality", function () {
   this.timeout(10000); // Set the timeout to 5000ms
 
   it("Should return the table id", () => {
-    expect(table.id).to.equal("tbl0XbaLEnIZAlABf");
+    expect(table.id).to.equal(tableID);
   });
 
   it("Should return an array of records", async () => {
     try {
-      const records = await table.selectRecordsAsync();
+      const records = await table.getRecords();
       expect(records).to.be.an("array");
       expect(records[0]).to.be.an('object');
     } catch (error) {
