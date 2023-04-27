@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import * as dotenv from "dotenv";
-import RecordWrapper from "../src/Wrappers/RecordWrapper.js";
 dotenv.config();
+import RecordWrapper from "../src/Wrappers/RecordWrapper.js";
 import { airtable } from "../src/main.js";
 
 // test parameters
-const baseID = "appjRThvK61bQlzb1"; 
-const tableID = 'tblD4xpWutzTKas3r';
+const baseID = "appjRThvK61bQlzb1";
+const tableID = "tblD4xpWutzTKas3r";
 
 // global variables
 let base = {};
@@ -32,29 +32,54 @@ describe("Table Functionality", function () {
     expect(table.id).to.equal(tableID);
   });
 
-  it("Should return an array of records", async () => {
-    try {
-      const records = await table.getRecords();
-      expect(records).to.be.an("array");
-      expect(records[0]).to.be.an('object');
-    } catch (error) {
-      throw error;
-    }
+  describe("Methods", () => {
+    describe("_getRecords()", () => {
+      it("Should return an array of records with _getRecords", async () => {
+        try {
+          const records = await table._getRecords();
+          expect(records).to.be.an("array");
+        } catch (error) {
+          throw error;
+        }
+      });
+
+      it("Each item in the array should contain an object", async () => {
+        try {
+          const records = await table._getRecords();
+          expect(records[0]).to.be.an("object");
+        } catch (error) {
+          throw error;
+        }
+      });
+
+      it("Should use existing array of records if available", async () => {
+        expect(table._records).to.be.an("array");
+        expect(table._records.length).to.be.greaterThan(0);
+      });
+    });
+    
+    describe("selectRecordsAsync(options)", () => {
+      
+      it("Should return an array of objects", async () => {
+        try {
+          const records = await table.selectRecordsAsync();
+          expect(records).to.be.an("array");
+          expect(records[0]).to.be.an("object")
+        } catch (error) {
+          throw error;
+        }
+      });
+      
+      it("Should have a property called records", async () => {
+        try {
+          const records = await table.selectRecordsAsync();
+          expect(records[0]).to.have.property("records");
+        } catch (error) {
+          throw error;
+        }
+      });
+    });
   });
-
-  it("Should selectRecordAsync", async () => {
-    try {
-      const records = await table.selectRecordsAsync();
-      const record = await table.selectRecordAsync(records[0].id);
-      expect(record).to.be.an.instanceOf(RecordWrapper);
-    } catch (error) {
-      throw error;
-    }
-  });  
 });
 
-
-describe("Record Functionality", () => {
-
-
-});
+describe("Record Functionality", () => {});
