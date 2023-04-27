@@ -2,7 +2,7 @@ import RecordWrapper from "./RecordWrapper.js";
 
 class TableWrapper {
   constructor(tableID, fetchData) {
-    this._id = tableID;
+    this._tableId = tableID;
     this._records = [];
     this._fetchData = fetchData;
     // this._fields = null;
@@ -10,16 +10,22 @@ class TableWrapper {
 
   // Add a new async method to load the table data when needed
   async _loadTable() {
-    this._table = await this._fetchData(this._id);
+    this._table = await this._fetchData(this._tableId);
   }
 
   get id() {
-    return this._id;
+    return this._tableId;
   }
 
-  get records() {
+  async _getRecords() {
+    if (!this._records.length) {
+      const records = await this._fetchData(this._tableId);
+      this._records = records.records.map(record => record);
+    }
+
     return this._records;
   }
+  
 
   selectRecordAsync = async (record) => {
     if (!this.records) throw new Error("No records loaded");
@@ -28,10 +34,19 @@ class TableWrapper {
   };
 
   selectRecordsAsync = async (options) => {
-    // select all records
-    const records = await this._fetchData(this._id);
-    this._records = records.records.map(record => record);
-    return this._records;
+    if(!this._records.length) await this._getRecords();
+
+    const fields = {fields: options}; // select specific fields;
+    return this._records.map(record => ({
+        recordIds: {
+            id: record.id
+        },
+        records: {
+            id: record.id,
+            name: Object.keys(record.fields)[0],
+            // fields: record.fields
+        }
+    }));
   };
 
   updateRecordAsync = async (record, data) => {
