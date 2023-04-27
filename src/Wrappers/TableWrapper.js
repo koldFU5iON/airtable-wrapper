@@ -1,70 +1,54 @@
-import BaseWrapper from './BaseWrapper';
+import RecordWrapper from "./RecordWrapper.js";
 
-// TableWrapper is a wrapper around the Airtable Table object
-class TableWrapper extends BaseWrapper {
-    constructor(base, table) {
-      super(base);
-      this.table = table;
-      this._records = [];
-    }
-  
-    get records() {
-      return this._records
-        ? this._records.map((record) => ({ id: record.record.id }))
-        : [];
-    }
-  
-    selectRecordAsync = async (record) => {
-      if (!this.table) throw new Error("Table not loaded");
-      try {
-        const recordObj = await this.table.find(record);
-        return new RecordWrapper(recordObj);
-      } catch (e) {
-        console.error(
-          `Unable to retrieve records from ${this.table} : ${e.message}`
-        );
-      }
-    };
-  
-    selectRecordsAsync = (options) => {
-      const fields = options.fields || [];
-      return new Promise((resolve, reject) => {
-        this.table.select(options).eachPage(
-          (records, fetchNextPage) => {
-            records.forEach((record) => {
-              const recordWrapper = new RecordWrapper(record, fields);
-              // console.log(recordWrapper);
-              this._records.push(recordWrapper);
-            });
-            fetchNextPage();
-          },
-          (err) => {
-            if (err) {
-              console.error(err);
-              reject(err);
-            } else {
-              resolve(this._records);
-            }
-          }
-        );
-      });
-    };
-  
-    updateRecordAsync = async (record, data) => {
-      // update a record
-    };
-  
-    updateRecordsAsync = async (records, data) => {
-      // update all records
-    };
-  
-    createRecordAsync = async (data) => {
-      // create a record
-    };
-  
-    createRecordsAsync = async (data) => {
-      // create all records
-    };
+class TableWrapper {
+  constructor(tableID, fetchData) {
+    this._id = tableID;
+    this._records = [];
+    this._fetchData = fetchData;
+    // this._fields = null;
   }
 
-  export default TableWrapper;
+  // Add a new async method to load the table data when needed
+  async _loadTable() {
+    this._table = await this._fetchData(this._id);
+  }
+
+  get id() {
+    return this._id;
+  }
+
+  get records() {
+    return this._records;
+  }
+
+  selectRecordAsync = async (record) => {
+    if (!this.records) throw new Error("No records loaded");
+    const findRecord = this.records.find(r => r.id === record.id);
+    return new RecordWrapper(findRecord);
+  };
+
+  selectRecordsAsync = async (options) => {
+    // select all records
+    const records = await this._fetchData(this._id);
+    this._records = records.records.map(record => record);
+    return this._records;
+  };
+
+  updateRecordAsync = async (record, data) => {
+    // update a record
+  };
+
+  updateRecordsAsync = async (records, data) => {
+    // update all records
+  };
+
+  createRecordAsync = async (data) => {
+    // create a record
+  };
+
+  createRecordsAsync = async (data) => {
+    // create all records
+  };
+}
+
+export default TableWrapper;
