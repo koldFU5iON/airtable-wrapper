@@ -103,7 +103,6 @@ describe("Table Functionality", function () {
       it("Should throw an error if the record does not exist", async () => {
         try {
           await table.selectRecordAsync("rec123456789");
-      
           // If the error is not thrown, fail the test
           throw new Error("Expected an error to be thrown");
         } catch (error) {
@@ -112,17 +111,51 @@ describe("Table Functionality", function () {
         }
       });
 
-      it("Should return a value from the field 'Company'", async () => {
-        try {
-          const record = await table.selectRecordAsync(testRecord);
-          expect(record.getCellValue('Product')).to.be.a("string");
-          expect(record.getCellValue('Product')).to.equal("Xerox 1980");
-        } catch (error) {
-          throw error;
-        }
-      });
     });
   });
 });
 
-describe("Record Functionality", () => {});
+describe("Record Functionality", () => {
+  describe("Methods", () => {
+    
+    it("Should return a value from the field 'Product'", async () => {
+      try {
+        const record = await table.selectRecordAsync(testRecord);
+        expect(record.getCellValue('Product')).to.be.a("string");
+        expect(record.getCellValue('Product')).to.equal("Xerox 1980");
+      } catch (error) {
+        throw error;
+      }
+    });
+
+    it("Should throw an error if a field is not found", async () => {
+      const record = new RecordWrapper(testRecord);
+      const getCellValueBound = record.getCellValue.bind(record);
+      expect(getCellValueBound).to.throw();
+    });
+
+    it("Should return an object for a single select field", async () => {
+      // test with 'Category' field as it's a single select
+      try {
+        const record = await table.selectRecordAsync(testRecord);
+        console.log(record);
+        expect(record.getCellValue('Category')).to.be.an("object");
+      } catch (error) {
+        throw error;
+      };
+    });
+    
+    it("Should return a value from getCellValueAsString as a string", async () => {
+      // test with 'Category' field as it's a single select
+      try {
+        const record = await table.selectRecordAsync(testRecord);
+        expect(record.getCellValueAsString('Category')).to.be.a("string");
+      } catch (error) {
+        throw error;
+      };
+    });
+    
+    
+    
+  });
+});

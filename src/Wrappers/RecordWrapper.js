@@ -6,11 +6,19 @@ class RecordWrapper {
   }
 
   getCellValue(field) {
-    if (this.fields === null || this.fields.includes(field)) {
-      return this.record.fields[field];
+    if (!field) {
+      throw new Error(`Field ${field} not found`);
     }
-    throw new Error(`Field ${field} not found`);
+    
+    const value = this.record.fields[field];
+    
+    if (value === undefined) {
+      throw new Error(`Field ${field} not found`);
+    }
+    
+    return value;
   }
+  
 
   getCellValueAsString(field) {
     const value = this.getCellValue(field);
