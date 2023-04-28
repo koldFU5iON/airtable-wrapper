@@ -27,7 +27,10 @@ class TableWrapper {
   }
 
   selectRecordAsync = async (record) => {
-    if (!this._records) throw new Error("No records loaded"); // if no records loaded, should fetch record on end point
+      // if no records loaded, should fetch record on end point
+    if (!this._records) throw new Error("No records loaded"); 
+    // fetch https://api.airtable.com/v0/{baseId}/{tableIdOrName}/{recordId}
+    
     try {
         const findRecord = await this._records.find(r => r.id === record);
         if(findRecord) return new RecordWrapper(findRecord);

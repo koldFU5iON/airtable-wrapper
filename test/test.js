@@ -111,8 +111,6 @@ describe("Table Functionality", function () {
           // Optionally, assert the error message or other details if needed
         }
       });
-      
-      
 
       it("Should return a value from the field 'Company'", async () => {
         try {
