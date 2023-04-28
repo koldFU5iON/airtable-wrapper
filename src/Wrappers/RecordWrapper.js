@@ -7,9 +7,9 @@ class RecordWrapper {
 
   getCellValue(field) {
     if (this.fields === null || this.fields.includes(field)) {
-      return this.record.get(field);
+      return this.record.fields[field];
     }
-    return null;
+    throw new Error(`Field ${field} not found`);
   }
 
   getCellValueAsString(field) {

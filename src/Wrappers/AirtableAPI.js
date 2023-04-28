@@ -38,9 +38,7 @@ class Airtable {
       data.records = data.records.concat(nextPageData.records);
     }
     return data;
-  };
-  
-  
+  };  
 
   getTable = (tableID) => {
     if (!tableID.startsWith("tbl")) {

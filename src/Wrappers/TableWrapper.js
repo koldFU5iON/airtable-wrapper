@@ -25,12 +25,16 @@ class TableWrapper {
 
     return this._records;
   }
-  
 
   selectRecordAsync = async (record) => {
-    if (!this.records) throw new Error("No records loaded");
-    const findRecord = this.records.find(r => r.id === record.id);
-    return new RecordWrapper(findRecord);
+    if (!this._records) throw new Error("No records loaded"); // if no records loaded, should fetch record on end point
+    try {
+        const findRecord = await this._records.find(r => r.id === record);
+        if(findRecord) return new RecordWrapper(findRecord);
+        throw new Error("Record not found");
+    } catch(e){
+        return e;
+    }
   };
 
   selectRecordsAsync = async (options) => {

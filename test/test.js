@@ -7,6 +7,7 @@ import { airtable } from "../src/main.js";
 // test parameters
 const baseID = "appjRThvK61bQlzb1";
 const tableID = "tblD4xpWutzTKas3r";
+const testRecord = 'recCSVi5noFord2UJ'
 
 // global variables
 let base = {};
@@ -74,6 +75,50 @@ describe("Table Functionality", function () {
         try {
           const records = await table.selectRecordsAsync();
           expect(records[0]).to.have.property("records");
+        } catch (error) {
+          throw error;
+        }
+      });
+    });
+
+    describe("selectRecordAsync(record)", () => {
+      it("Should return a record object", async () => {
+        try {
+          const record = await table.selectRecordAsync(testRecord);
+          expect(record).to.be.an("object");
+        } catch (error) {
+          throw error;
+        }
+      });
+
+      it("Should return a record object with a property called fields", async () => {
+        try {
+          const record = await table.selectRecordAsync(testRecord);
+          expect(record).to.have.property("fields");
+        } catch (error) {
+          throw error;
+        }
+      });
+
+      it("Should throw an error if the record does not exist", async () => {
+        try {
+          await table.selectRecordAsync("rec123456789");
+      
+          // If the error is not thrown, fail the test
+          throw new Error("Expected an error to be thrown");
+        } catch (error) {
+          expect(error).to.be.an("error");
+          // Optionally, assert the error message or other details if needed
+        }
+      });
+      
+      
+
+      it("Should return a value from the field 'Company'", async () => {
+        try {
+          const record = await table.selectRecordAsync(testRecord);
+          expect(record.getCellValue('Product')).to.be.a("string");
+          expect(record.getCellValue('Product')).to.equal("Xerox 1980");
         } catch (error) {
           throw error;
         }
