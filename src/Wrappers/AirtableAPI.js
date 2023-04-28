@@ -27,7 +27,8 @@ class Airtable {
       method: "GET",
       headers: {
         Authorization: `Bearer ${this.apiKey}`,
-      },
+      }
+      
     });
     const data = await response.json();
   
