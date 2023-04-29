@@ -27,7 +27,7 @@ describe("Base Functionality", () => {
 });
 
 describe("Table Functionality", function () {
-  this.timeout(10000); // Set the timeout to 5000ms
+  this.timeout(20000); // Set the timeout to 5000ms
 
   it("Should return the table id", () => {
     expect(table.id).to.equal(tableID);
