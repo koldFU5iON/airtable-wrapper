@@ -1,5 +1,5 @@
-// RecordWrapper is a wrapper around the Airtable Record object
-class RecordWrapper {
+// Record is a wrapper around the Airtable Record object
+class Record {
   constructor(record, fields = null) {
     this.record = record;
     this.fields = fields;
@@ -26,4 +26,4 @@ class RecordWrapper {
   }
 }
 
-export default RecordWrapper;
+export default Record;

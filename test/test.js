@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import { fetchData } from "../src/util/fetch.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 import RecordWrapper from "../src/Wrappers/RecordWrapper.js";
@@ -12,6 +13,16 @@ const testRecord = 'recCSVi5noFord2UJ'
 // global variables
 let base = {};
 let table = {};
+
+describe("Fetch Data", () => {
+  it("should return an object", async () => {
+    const data = await fetchData({
+      tableID: tableID,
+    });
+    expect(data).to.be.an("object");
+  });
+});
+
 
 // test the API key works correctly and I recieve a response form the AirtableWrapper
 describe("Base Functionality", () => {

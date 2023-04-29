@@ -10,7 +10,7 @@ import TableWrapper from "./TableWrapper.js";
  * import Airtable from "./Airtable.js";
  *
  * // Create an instance of Airtable
- * const baseID = "your_airtable_base_id";
+ * const baseID = "your_airtable_base_baseID";
  * const apiKey = "your_airtable_api_key";
  * const airtable = new Airtable(baseID, apiKey);
  *
@@ -32,7 +32,7 @@ class Airtable {
    */
   constructor(baseID, apiKey) {
     this._apiKey = apiKey;
-    this._id = baseID;
+    this._baseID = baseID;
   }
 
   /**
@@ -46,7 +46,11 @@ class Airtable {
     if (!tableID.startsWith("tbl")) {
       throw new Error("Invalid table ID. The table ID must start with 'tbl'.");
     }
-    const table = new TableWrapper(tableID);
+    const table = new TableWrapper({
+      base: this._baseID,
+      table: tableID,
+      apiKey: this._apiKey,
+    });
     return table;
   };
 
@@ -57,7 +61,7 @@ class Airtable {
    * @readonly
    */
   get id() {
-    return this._id;
+    return this._baseID;
   }
 
   /**
@@ -69,7 +73,6 @@ class Airtable {
   get apiKey() {
     return this._apiKey;
   }
-
 }
 
 export default Airtable;
