@@ -70,15 +70,6 @@ class Airtable {
     return this._apiKey;
   }
 
-  /**
-   * Get the endpoint URL for the Airtable API.
-   *
-   * @type {string}
-   * @readonly
-   */
-  get endPoint() {
-    return this._endPoint;
-  }
 }
 
 export default Airtable;
