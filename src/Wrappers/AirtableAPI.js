@@ -1,4 +1,4 @@
-import TableWrapper from "./TableWrapper.js";
+import Table from "./Table.js";
 
 /**
  * Airtable Class for Interacting with the Airtable API
@@ -14,7 +14,7 @@ import TableWrapper from "./TableWrapper.js";
  * const apiKey = "your_airtable_api_key";
  * const airtable = new Airtable(baseID, apiKey);
  *
- * // Get a TableWrapper instance for a specific table
+ * // Get a Table instance for a specific table
  * const tableID = "tblYourTableID";
  * const table = airtable.getTable(tableID);
  *
@@ -36,17 +36,17 @@ class Airtable {
   }
 
   /**
-   * Get a TableWrapper instance for a specific table.
+   * Get a Table instance for a specific table.
    *
    * @param {string} tableID - The ID of the table. Must start with "tbl".
    * @throws {Error} Throws an error if the tableID is invalid.
-   * @returns {TableWrapper} The TableWrapper instance for the specified table.
+   * @returns {Table} The Table instance for the specified table.
    */
   getTable = (tableID) => {
     if (!tableID.startsWith("tbl")) {
       throw new Error("Invalid table ID. The table ID must start with 'tbl'.");
     }
-    const table = new TableWrapper({
+    const table = new Table({
       base: this._baseID,
       table: tableID,
       apiKey: this._apiKey,

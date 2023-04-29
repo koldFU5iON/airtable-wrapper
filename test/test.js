@@ -1,8 +1,10 @@
 import { expect } from "chai";
+import * as dotenv from "dotenv"; dotenv.config();
+
+// test files
 import { fetchData } from "../src/util/fetch.js";
-import * as dotenv from "dotenv";
-dotenv.config();
-import RecordWrapper from "../src/Wrappers/RecordWrapper.js";
+import Record from "../src/Wrappers/Record.js";
+import Table from "../src/Wrappers/Table.js";
 import { airtable } from "../src/main.js";
 
 // test parameters
@@ -17,7 +19,10 @@ let table = {};
 describe("Fetch Data", () => {
   it("should return an object", async () => {
     const data = await fetchData({
+      baseID: baseID,
       tableID: tableID,
+      apiKey: process.env.AIRTABLE_API_KEY,
+
     });
     expect(data).to.be.an("object");
   });
@@ -140,7 +145,7 @@ describe("Record Functionality", () => {
     });
 
     it("Should throw an error if a field is not found", async () => {
-      const record = new RecordWrapper(testRecord);
+      const record = new Record(testRecord);
       const getCellValueBound = record.getCellValue.bind(record);
       expect(getCellValueBound).to.throw();
     });

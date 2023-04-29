@@ -13,6 +13,9 @@ import fetch from "node-fetch";
  */
 export const fetchData = async (options, offset = null) => {
   const {
+    baseID,
+    tableID,
+    recordID,
     endPoint,
     params,
     fields = [],
