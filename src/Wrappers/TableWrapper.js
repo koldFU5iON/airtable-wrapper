@@ -1,16 +1,15 @@
 import RecordWrapper from "./RecordWrapper.js";
+import { fetchData } from "../util/fetch.js";
 
 class TableWrapper {
-  constructor(tableID, fetchData) {
+  constructor(tableID) {
     this._tableId = tableID;
     this._records = [];
-    this._fetchData = fetchData;
-    // this._fields = null;
   }
 
   // Add a new async method to load the table data when needed
   async _loadTable() {
-    this._table = await this._fetchData(this._tableId);
+    this._table = await fetchData(this._tableId);
   }
 
   get id() {
@@ -19,7 +18,7 @@ class TableWrapper {
 
   async _getRecords() {
     if (!this._records.length) {
-      const records = await this._fetchData(this._tableId);
+      const records = await fetchData(this._tableId);
       this._records = records.records.map(record => record);
     }
 
