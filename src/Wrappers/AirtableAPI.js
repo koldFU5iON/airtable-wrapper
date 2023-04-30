@@ -47,8 +47,8 @@ class Airtable {
       throw new Error("Invalid table ID. The table ID must start with 'tbl'.");
     }
     const table = new Table({
-      base: this._baseID,
-      table: tableID,
+      baseID: this._baseID,
+      tableID: tableID,
       apiKey: this._apiKey,
     });
     return table;
