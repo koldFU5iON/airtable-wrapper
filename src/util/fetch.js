@@ -19,36 +19,39 @@ export const fetchData = async (options, offset = null) => {
     endPoint,
     params,
     fields = [],
-    apiKey
+    apiKey,
   } = options;
 
-  let url = `${endPoint}${params}/${endPoint}`;
+  let url = !recordID
+    ? `https://api.airtable.com/v0/${baseID}/${tableID}/`
+    : `https://api.airtable.com/v0/${baseID}/${tableID}/${recordID}`;
+
   let queryParams = new URLSearchParams();
 
   if (offset) {
     queryParams.append("offset", offset);
   }
 
-  const requestBody = {
-    fields,
-  };
-
   if (queryParams.toString()) {
     url += `?${queryParams.toString()}`;
   }
 
+//   const requestBody = {
+//     fields,
+//   };
+
   try {
     const response = await fetch(url, {
-      method: "POST",
+      method: "GET",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(requestBody),
+      //   body: JSON.stringify(requestBody),
     });
 
     const data = await response.json();
-
+    
     if (data.offset) {
       const nextPageData = await fetchData(options, data.offset);
       data.records = data.records.concat(nextPageData.records);
