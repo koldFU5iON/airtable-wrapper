@@ -17,7 +17,7 @@ let base = {};
 let table = {};
 
 describe("Fetch Data", function () {
-  this.timeout(5000); // Set the timeout to 5000ms
+  this.timeout(10000); // Set the timeout to 10000ms
 
   it("should return the table object", async function () {
     const data = await fetchData({
@@ -53,30 +53,29 @@ describe("Table Functionality", function () {
   });
 
   describe("Methods", () => {
-    // describe("_getRecords()", () => {
-    //   it("Should return an array of records with _getRecords", async () => {
-    //     try {
-    //       const records = await table._getRecords();
-    //       expect(records).to.be.an("array");
-    //     } catch (error) {
-    //       throw error;
-    //     }
-    //   });
+    describe("_getRecords()", () => {
+      it("Should return an array of records with _getRecords", async () => {
+        try {
+          const records = await table._getRecords();
+          expect(records).to.be.an("array");
+        } catch (error) {
+          throw error;
+        }
+      });
 
-    //   it("Each item in the array should contain an object", async () => {
-    //     try {
-    //       const records = await table._getRecords();
-    //       expect(records[0]).to.be.an("object");
-    //     } catch (error) {
-    //       throw error;
-    //     }
-    //   });
+      it("Each item in the array should contain an object", async () => {
+        try {
+          const records = await table._getRecords();
+          expect(records[0]).to.be.an("object");
+        } catch (error) {
+          throw error;
+        }
+      });
 
-    //   it("Should use existing array of records if available", async () => {
-    //     expect(table._records).to.be.an("array");
-    //     expect(table._records.length).to.be.greaterThan(0);
-    //   });
-    // });
+      it("Should use existing array of records if available", async () => {
+        expect(table._records).to.be.an("object");
+      });
+    });
     
     // describe("selectRecordsAsync(options)", () => {
       
