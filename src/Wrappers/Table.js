@@ -20,14 +20,14 @@ class Table {
       tableID: this._tableId,
       apiKey: this._apiKey,
     });
-    return this._records;
+    return this._records.records;
   }
 
   async _getRecords() {
     if (!this._records.length) {
       this._records = await this._loadTable();
     }
-    return this._records.records.map((record) => record);
+    return this._records.map((record) => record);
   }
 
   selectRecordAsync = async (record) => {
@@ -45,7 +45,7 @@ class Table {
   selectRecordsAsync = async (fields) => {
     if (!this._records.length) await this._getRecords();
 
-    return this._records.records.map((record) => {
+    return this._records.map((record) => {
       const selectedFields = {};
 
       // fields.forEach((field) => {
