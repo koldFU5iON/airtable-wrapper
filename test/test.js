@@ -3,8 +3,6 @@ import * as dotenv from "dotenv"; dotenv.config();
 
 // test files
 import { fetchData } from "../src/util/fetch.js";
-import Record from "../src/Wrappers/Record.js";
-import Table from "../src/Wrappers/Table.js";
 import { airtable } from "../main.js";
 
 // test parameters
