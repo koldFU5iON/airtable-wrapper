@@ -5,7 +5,7 @@ import * as dotenv from "dotenv"; dotenv.config();
 import { fetchData } from "../src/util/fetch.js";
 import Record from "../src/Wrappers/Record.js";
 import Table from "../src/Wrappers/Table.js";
-import { airtable } from "../src/main.js";
+import { airtable } from "../main.js";
 
 // test parameters
 const baseID = "appjRThvK61bQlzb1";
