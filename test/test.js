@@ -1,5 +1,6 @@
 import { expect } from "chai";
-import * as dotenv from "dotenv"; dotenv.config();
+import * as dotenv from "dotenv";
+dotenv.config();
 
 // test files
 import { fetchData } from "../src/util/fetch.js";
@@ -8,7 +9,7 @@ import { airtable } from "../main.js";
 // test parameters
 const baseID = "appjRThvK61bQlzb1";
 const tableID = "tblD4xpWutzTKas3r";
-const testRecord = 'recCSVi5noFord2UJ'
+const testRecord = "recCSVi5noFord2UJ";
 
 // global variables
 let base = {};
@@ -24,12 +25,9 @@ describe("Fetch Data", function () {
       apiKey: process.env.AIRTABLE_API_KEY,
     });
     expect(data).to.be.an("object");
-    expect(data).to.have.property('records');
+    expect(data).to.have.property("records");
   });
-  
 });
-
-
 
 // test the API key works correctly and I recieve a response form the AirtableWrapper
 describe("Base Functionality", () => {
@@ -53,7 +51,6 @@ describe("Table Functionality", function () {
 
   describe("Methods", () => {
     describe("_getRecords()", () => {
-      
       it("Should return an array of records with _getRecords", async () => {
         try {
           const records = await table._getRecords();
@@ -73,12 +70,11 @@ describe("Table Functionality", function () {
       });
 
       it("Should use existing array of records if available", async () => {
-        expect(table._allRecords).to.be.an("array");
+        expect(table._records).to.be.an("array");
       });
     });
-    
-    describe("selectRecordsAsync(options)", () => {
 
+    describe("selectRecordsAsync(options)", () => {
       it("Should return an array of objects", async () => {
         try {
           const records = await table.selectRecordsAsync();
@@ -92,12 +88,12 @@ describe("Table Functionality", function () {
       it("Should return include of objects", async () => {
         try {
           const records = await table.selectRecordsAsync();
-          expect(records[0]).to.be.an("object")
+          expect(records[0]).to.be.an("object");
         } catch (error) {
           throw error;
         }
       });
-      
+
       it("Should have a property called records", async () => {
         try {
           const records = await table.selectRecordsAsync();
@@ -106,7 +102,7 @@ describe("Table Functionality", function () {
           throw error;
         }
       });
-      
+
       it("Should return selected fields if specified", async () => {
         try {
           const record = await table.selectRecordsAsync({
@@ -118,9 +114,8 @@ describe("Table Functionality", function () {
           throw error;
         }
       });
-      
     });
-    
+
     describe("selectRecordAsync(record)", () => {
       it("Should return a record object", async () => {
         try {
@@ -150,12 +145,9 @@ describe("Table Functionality", function () {
           // Optionally, assert the error message or other details if needed
         }
       });
-
-
     });
   });
 });
-
 
 /*
 describe("Record Functionality", () => {
