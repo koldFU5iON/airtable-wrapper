@@ -7,7 +7,7 @@ class Table {
     this._tableId = tableID;
     this._baseId = baseID;
     this._apiKey = apiKey;
-    this._records = [];
+    this._allRecords = [];
   }
 
   get id() {
@@ -15,26 +15,26 @@ class Table {
   }
 
   async _loadTable() {
-    this._records = await fetchData({
+    this._allRecords = await fetchData({
       baseID: this._baseId,
       tableID: this._tableId,
       apiKey: this._apiKey,
     });
-    return this._records.records;
+    return this._allRecords.records;
   }
 
   async _getRecords() {
-    if (!this._records.length) {
-      this._records = await this._loadTable();
+    if (!this._allRecords.length) {
+      this._allRecords = await this._loadTable();
     }
-    return this._records.map((record) => record);
+    return this._allRecords.map((record) => record);
   }
 
   selectRecordAsync = async (record) => {
-    if (!this._records) throw new Error("No records loaded");
+    if (!this._allRecords) throw new Error("No records loaded");
 
     try {
-      const findRecord = await this._records.find((r) => r.id === record);
+      const findRecord = await this._allRecords.find((r) => r.id === record);
       if (findRecord) return new Record(findRecord);
       throw new Error("Record not found");
     } catch (e) {
@@ -43,28 +43,32 @@ class Table {
   };
 
   selectRecordsAsync = async (fields) => {
-    if (!this._records.length) await this._getRecords();
+    if (!this._allRecords.length) await this._getRecords();
 
-    const selectedFields = {};
+    // if(fields){
+    //   const filteredRecords = 
+    // }
 
-    if (fields) {
-      fields.forEach((field) => {
-        selectedFields[field] = record.fields[field];
-      });
-    }
-
-    return this._records.map((record) => {
-      return {
+    const formattedRecords = this._allRecords.map((record) => {
+      
+      const formatRecord =  {
         recordIds: {
           id: record.id,
         },
         records: {
           id: record.id,
           name: Object.keys(record.fields)[0],
-          fields: selectedFields,
+          // fields: record.fields,
         },
       };
+
+      // fields ? formatRecord.records.fields[fields] : null;
+
+      return formatRecord;
+
     });
+
+    return formattedRecords;
   };
 }
 

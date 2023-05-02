@@ -26,6 +26,7 @@ describe("Fetch Data", function () {
     expect(data).to.be.an("object");
     expect(data).to.have.property('records');
   });
+  
 });
 
 
@@ -52,6 +53,7 @@ describe("Table Functionality", function () {
 
   describe("Methods", () => {
     describe("_getRecords()", () => {
+      
       it("Should return an array of records with _getRecords", async () => {
         try {
           const records = await table._getRecords();
@@ -71,11 +73,12 @@ describe("Table Functionality", function () {
       });
 
       it("Should use existing array of records if available", async () => {
-        expect(table._records).to.be.an("array");
+        expect(table._allRecords).to.be.an("array");
       });
     });
     
     describe("selectRecordsAsync(options)", () => {
+
       it("Should return an array of objects", async () => {
         try {
           const records = await table.selectRecordsAsync();
@@ -153,47 +156,50 @@ describe("Table Functionality", function () {
   });
 });
 
-// describe("Record Functionality", () => {
-//   describe("Methods", () => {
-    
-//     it("Should return a value from the field 'Product'", async () => {
-//       try {
-//         const record = await table.selectRecordAsync(testRecord);
-//         expect(record.getCellValue('Product')).to.be.a("string");
-//         expect(record.getCellValue('Product')).to.equal("Xerox 1980");
-//       } catch (error) {
-//         throw error;
-//       }
-//     });
 
-//     it("Should throw an error if a field is not found", async () => {
-//       const record = new Record(testRecord);
-//       const getCellValueBound = record.getCellValue.bind(record);
-//       expect(getCellValueBound).to.throw();
-//     });
+/*
+describe("Record Functionality", () => {
+  describe("Methods", () => {
+    
+    it("Should return a value from the field 'Product'", async () => {
+      try {
+        const record = await table.selectRecordAsync(testRecord);
+        expect(record.getCellValue('Product')).to.be.a("string");
+        expect(record.getCellValue('Product')).to.equal("Xerox 1980");
+      } catch (error) {
+        throw error;
+      }
+    });
 
-//     it("Should return an object for a single select field", async () => {
-//       // test with 'Category' field as it's a single select
-//       try {
-//         const record = await table.selectRecordAsync(testRecord);
-//         console.log(record);
-//         expect(record.getCellValue('Category')).to.be.an("object");
-//       } catch (error) {
-//         throw error;
-//       };
-//     });
+    it("Should throw an error if a field is not found", async () => {
+      const record = new Record(testRecord);
+      const getCellValueBound = record.getCellValue.bind(record);
+      expect(getCellValueBound).to.throw();
+    });
+
+    it("Should return an object for a single select field", async () => {
+      // test with 'Category' field as it's a single select
+      try {
+        const record = await table.selectRecordAsync(testRecord);
+        console.log(record);
+        expect(record.getCellValue('Category')).to.be.an("object");
+      } catch (error) {
+        throw error;
+      };
+    });
     
-//     it("Should return a value from getCellValueAsString as a string", async () => {
-//       // test with 'Category' field as it's a single select
-//       try {
-//         const record = await table.selectRecordAsync(testRecord);
-//         expect(record.getCellValueAsString('Category')).to.be.a("string");
-//       } catch (error) {
-//         throw error;
-//       };
-//     });
+    it("Should return a value from getCellValueAsString as a string", async () => {
+      // test with 'Category' field as it's a single select
+      try {
+        const record = await table.selectRecordAsync(testRecord);
+        expect(record.getCellValueAsString('Category')).to.be.a("string");
+      } catch (error) {
+        throw error;
+      };
+    });
     
     
     
-//   });
-// });
+  });
+});
+*/
