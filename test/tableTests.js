@@ -1,11 +1,8 @@
 import chai, { expect } from "chai";
 import chaiAsPromised from "chai-as-promised";
-
 import * as dotenv from "dotenv"; dotenv.config();
 
-// test files
-import { fetchData } from "../src/util/fetch.js";
-import { airtable } from "../main.js";
+import Table from "../src/Wrappers/Table.js";
 
 // global variables
 import { base, table, baseID, tableID, testRecord } from "./test.js";
@@ -20,6 +17,7 @@ describe("Table Functionality", function () {
     });
   
     describe("Methods", () => {
+
       describe("_getRecords()", () => {
         it("Should return an array of records with _getRecords", async () => {
           try {
@@ -44,7 +42,7 @@ describe("Table Functionality", function () {
         });
       });
   
-      describe("selectRecordsAsync(options)", () => {
+      describe("selectRecordsAsync(fields)", () => {
   
         it("Should return an array of objects", async () => {
           try {
@@ -78,7 +76,6 @@ describe("Table Functionality", function () {
       describe("selectRecordAsync(record)", () => {
   
         it('should throw an error if no record is given', async () => {
-          const table = new Table();
           await expect(table.selectRecordAsync()).to.be.rejectedWith(Error, 'Record ID is required');
         });
   

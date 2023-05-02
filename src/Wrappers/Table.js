@@ -7,6 +7,7 @@ class Table {
     this._tableId = tableID;
     this._baseId = baseID;
     this._apiKey = apiKey;
+    this._record = null;
     this._records = [];
     this._fields = [];
   }
@@ -15,12 +16,13 @@ class Table {
     return this._tableId;
   }
 
-  async _loadTable(fields = []) {
+  async _loadTable() {
     this._records = await fetchData({
       baseID: this._baseId,
       tableID: this._tableId,
+      recordID: this._record,
       apiKey: this._apiKey,
-      fields: fields,
+      fields: this._fields,
     });
     return this._records.records;
   }
@@ -52,15 +54,9 @@ class Table {
   };
 
   selectRecordAsync = async (record) => {
-    if (!this._records) throw new Error("No records loaded");
+    if(!record) throw new Error("Record ID is required")
+    return new Record(record, this._fields);
 
-    try {
-      const findRecord = await this._records.find((r) => r.id === record);
-      if (findRecord) return new Record(findRecord);
-      throw new Error("Record not found");
-    } catch (e) {
-      return e;
-    }
   };
 }
 
