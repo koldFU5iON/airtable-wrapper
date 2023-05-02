@@ -103,8 +103,21 @@ describe("Table Functionality", function () {
           throw error;
         }
       });
+      
+      it("Should return selected fields if specified", async () => {
+        try {
+          const record = await table.selectRecordsAsync({
+            fields: ["Product"],
+          });
+          expect(record).to.be.an("object");
+          expect(record.fields).to.have.property("Product");
+        } catch (error) {
+          throw error;
+        }
+      });
+      
     });
-
+    
     describe("selectRecordAsync(record)", () => {
       it("Should return a record object", async () => {
         try {
@@ -134,6 +147,7 @@ describe("Table Functionality", function () {
           // Optionally, assert the error message or other details if needed
         }
       });
+
 
     });
   });
