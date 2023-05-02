@@ -29,7 +29,7 @@ export const fetchData = async (options, offset = null) => {
   let queryParams = new URLSearchParams();
 
   if (fields.length > 0) {
-    console.log(fields)
+    console.log(fields);
     queryParams.append("fields%5B%5D", fields.join(","));
   }
 
@@ -40,7 +40,6 @@ export const fetchData = async (options, offset = null) => {
   if (queryParams.toString()) {
     url += `?${queryParams.toString()}`;
   }
-
 
   try {
     const response = await fetch(url, {
@@ -53,7 +52,7 @@ export const fetchData = async (options, offset = null) => {
     });
 
     const data = await response.json();
-    
+
     if (data.offset) {
       const nextPageData = await fetchData(options, data.offset);
       data.records = data.records.concat(nextPageData.records);

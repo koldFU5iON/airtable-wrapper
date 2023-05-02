@@ -33,9 +33,8 @@ class Table {
   }
 
   selectRecordsAsync = async (fields) => {
-    
-    fields ? this._fields = fields.fields : null;
-    
+    fields ? (this._fields = fields.fields) : null;
+
     if (this._records.length) await this._getRecords();
 
     return this._records.map((record) => {
@@ -49,7 +48,7 @@ class Table {
           fields: record.fields,
         },
       };
-  });
+    });
   };
 
   selectRecordAsync = async (record) => {
