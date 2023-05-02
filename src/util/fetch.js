@@ -28,6 +28,11 @@ export const fetchData = async (options, offset = null) => {
 
   let queryParams = new URLSearchParams();
 
+  if (fields.length > 0) {
+    console.log(fields)
+    queryParams.append("fields%5B%5D", fields.join(","));
+  }
+
   if (offset) {
     queryParams.append("offset", offset);
   }
@@ -36,9 +41,6 @@ export const fetchData = async (options, offset = null) => {
     url += `?${queryParams.toString()}`;
   }
 
-//   const requestBody = {
-//     fields,
-//   };
 
   try {
     const response = await fetch(url, {
