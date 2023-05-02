@@ -7,13 +7,8 @@ import * as dotenv from "dotenv"; dotenv.config();
 import { fetchData } from "../src/util/fetch.js";
 import { airtable } from "../main.js";
 
-// test parameters
-const baseID = "appjRThvK61bQlzb1";
-const tableID = "tblD4xpWutzTKas3r";
-const testRecord = "recCSVi5noFord2UJ";
-
 // global variables
-let table = {};
+import { base, table, baseID, tableID, testRecord } from "./test.js";
 
 chai.use(chaiAsPromised)
 

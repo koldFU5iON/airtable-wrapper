@@ -9,6 +9,7 @@ import { airtable } from "../main.js";
 // test parameters
 const baseID = "appjRThvK61bQlzb1";
 const tableID = "tblD4xpWutzTKas3r";
+const testRecord = "recCSVi5noFord2UJ";
 
 // global variables
 let base = {};
@@ -41,6 +42,4 @@ describe("Base Functionality", () => {
   });
 });
 
-
-
-
+export { base, table, baseID, tableID, testRecord };

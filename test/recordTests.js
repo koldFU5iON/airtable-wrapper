@@ -1,13 +1,8 @@
 import { expect } from "chai";
 import * as dotenv from "dotenv"; dotenv.config();
 
-// test parameters
-const baseID = "appjRThvK61bQlzb1";
-const tableID = "tblD4xpWutzTKas3r";
-const testRecord = "recCSVi5noFord2UJ";
-
 // global variables
-let table = {};
+import { base, table, baseID, tableID, testRecord } from "./test.js";
 
 
 describe("Record Functionality", () => {
