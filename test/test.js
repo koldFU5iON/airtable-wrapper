@@ -75,27 +75,35 @@ describe("Table Functionality", function () {
       });
     });
     
-    // describe("selectRecordsAsync(options)", () => {
+    describe("selectRecordsAsync(options)", () => {
+      it("Should return an array of objects", async () => {
+        try {
+          const records = await table.selectRecordsAsync();
+          expect(records).to.be.an("array");
+          // expect(records[0]).to.be.an("object")
+        } catch (error) {
+          throw error;
+        }
+      });
+
+      it("Should return include of objects", async () => {
+        try {
+          const records = await table.selectRecordsAsync();
+          expect(records[0]).to.be.an("object")
+        } catch (error) {
+          throw error;
+        }
+      });
       
-    //   it("Should return an array of objects", async () => {
-    //     try {
-    //       const records = await table.selectRecordsAsync();
-    //       expect(records).to.be.an("array");
-    //       expect(records[0]).to.be.an("object")
-    //     } catch (error) {
-    //       throw error;
-    //     }
-    //   });
-      
-    //   it("Should have a property called records", async () => {
-    //     try {
-    //       const records = await table.selectRecordsAsync();
-    //       expect(records[0]).to.have.property("records");
-    //     } catch (error) {
-    //       throw error;
-    //     }
-    //   });
-    // });
+      it("Should have a property called records", async () => {
+        try {
+          const records = await table.selectRecordsAsync();
+          expect(records[0]).to.have.property("records");
+        } catch (error) {
+          throw error;
+        }
+      });
+    });
 
     // describe("selectRecordAsync(record)", () => {
     //   it("Should return a record object", async () => {

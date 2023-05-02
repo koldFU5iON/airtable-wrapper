@@ -45,12 +45,12 @@ class Table {
   selectRecordsAsync = async (fields) => {
     if (!this._records.length) await this._getRecords();
 
-    return this._records.map((record) => {
+    return this._records.records.map((record) => {
       const selectedFields = {};
 
-      fields.forEach((field) => {
-        selectedFields[field] = record.fields[field];
-      });
+      // fields.forEach((field) => {
+      //   selectedFields[field] = record.fields[field];
+      // });
 
       return {
         recordIds: {
