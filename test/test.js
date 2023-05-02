@@ -135,13 +135,14 @@ describe("Table Functionality", function () {
         }
       });
       
-      it("Should return selected fields if specified", async () => {
+      it("Should adding fields to the _fields variable in the table class", async () => {
         try {
-          const record = await table.selectRecordsAsync({
+          await table.selectRecordsAsync({
             fields: ["Product"],
           });
-          expect(record).to.be.an("object");
-          expect(record.fields).to.have.property("Product");
+          expect(table._fields).to.be.an("array");
+          expect(table._fields[0]).to.be.a("string");
+          expect(table._fields).to.contain("Product");
         } catch (error) {
           throw error;
         }
