@@ -1,3 +1,4 @@
+import Airtable from "./src/Wrappers/AirtableAPI.js"
 /**
  * Creates an instance of Airtable.
  * @param {string} baseID - The ID of the base.
