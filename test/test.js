@@ -103,19 +103,8 @@ describe("Table Functionality", function () {
         }
       });
 
-      it("Should return selected fields if specified", async () => {
-        try {
-          const record = await table.selectRecordsAsync({
-            fields: ["Product"],
-          });
-          expect(record).to.be.an("object");
-          expect(record.fields).to.have.property("Product");
-        } catch (error) {
-          throw error;
-        }
-      });
     });
-
+    
     describe("selectRecordAsync(record)", () => {
       it("Should return a record object", async () => {
         try {
@@ -125,7 +114,7 @@ describe("Table Functionality", function () {
           throw error;
         }
       });
-
+      
       it("Should return a record object with a property called fields", async () => {
         try {
           const record = await table.selectRecordAsync(testRecord);
@@ -134,7 +123,7 @@ describe("Table Functionality", function () {
           throw error;
         }
       });
-
+      
       it("Should throw an error if the record does not exist", async () => {
         try {
           await table.selectRecordAsync("rec123456789");
@@ -143,6 +132,18 @@ describe("Table Functionality", function () {
         } catch (error) {
           expect(error).to.be.an("error");
           // Optionally, assert the error message or other details if needed
+        }
+      });
+      
+      it("Should return selected fields if specified", async () => {
+        try {
+          const record = await table.selectRecordsAsync({
+            fields: ["Product"],
+          });
+          expect(record).to.be.an("object");
+          expect(record.fields).to.have.property("Product");
+        } catch (error) {
+          throw error;
         }
       });
     });
