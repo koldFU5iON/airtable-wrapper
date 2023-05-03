@@ -31,6 +31,7 @@ class Table {
     if (!this._records.length) {
       this._records = await this._loadTable();
     }
+    this._fields = Object.keys(this._records[0].fields);
     return this._records.map((record) => record);
   }
 
