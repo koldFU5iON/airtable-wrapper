@@ -6,8 +6,8 @@ class Table {
     const { baseID, tableID, apiKey } = IDs;
     this._tableId = tableID;
     this._baseId = baseID;
+    this._recordId = null;
     this._apiKey = apiKey;
-    this._record = null;
     this._records = [];
     this._fields = [];
   }
@@ -16,7 +16,7 @@ class Table {
     return this._tableId;
   }
 
-  async _loadTable() {
+  _loadTable = async () => {
     this._records = await fetchData({
       baseID: this._baseId,
       tableID: this._tableId,
@@ -27,7 +27,7 @@ class Table {
     return this._records.records;
   }
 
-  async _getRecords() {
+  _getRecords = async () =>{
     if (!this._records.length) {
       this._records = await this._loadTable();
     }
@@ -53,10 +53,17 @@ class Table {
     });
   };
 
-  selectRecordAsync = async (record) => {
-    if(!record) throw new Error("Record ID is required")
-    return new Record(record, this._fields);
+  selectRecordAsync = async (id) => {
+    // error handling
+    if(!id || typeof id === 'number') throw new Error("Record ID is not valid")
+    if(!this._records.length) await this._getRecords();
+    this._recordId = id;
 
+    // search for record
+    const record = this._records.find((record) => record.id === id);
+    if(!record) throw new Error(`Record, ${id} not found`);
+
+    return new Record(record, this._fields);
   };
 }
 

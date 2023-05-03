@@ -3,10 +3,8 @@ import chaiAsPromised from "chai-as-promised";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import Table from "../src/Wrappers/Table.js";
-
 // global variables
-import { base, table, baseID, tableID, testRecord } from "./test.js";
+import { table, testRecord } from "./test.js";
 
 chai.use(chaiAsPromised);
 
@@ -86,8 +84,8 @@ describe("Table Functionality", function () {
         expect(record).to.have.property("fields");
       });
 
-      it("Should throw an error if the record does not exist", () => {
-        expect(async () => await table.selectRecordAsync("rec123456789")).to.throw(
+      it("Should throw an error if the record does not exist", async () => {
+        await expect(table.selectRecordAsync("rec123456789")).to.eventually.be.rejectedWith(
           Error,
           "Record, rec123456789 not found"
         );
