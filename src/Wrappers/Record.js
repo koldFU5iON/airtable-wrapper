@@ -1,22 +1,19 @@
 // Record is a wrapper around the Airtable Record object
 class Record {
-  constructor(record, fields = null) {
+  constructor(record, fields) {
     this.record = record;
     this.fields = fields;
   }
 
   getCellValue(field) {
-    if (!field) {
-      throw new Error(`Field ${field} not found`);
+    // error handling
+    if (!field || field === null) throw new Error(`Field required`);
+    if (!this.fields.some((f) => f === field)) {
+      throw new Error(`Field, ${field} not found`);
     }
-
-    const value = this.record.fields[field];
-
-    if (value === undefined) {
-      throw new Error(`Field ${field} not found`);
-    }
-
-    return value;
+        
+    // return value
+    return this.record.fields[field];
   }
 
   getCellValueAsString(field) {
